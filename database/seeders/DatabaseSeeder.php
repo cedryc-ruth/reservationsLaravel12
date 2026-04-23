@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Artist;
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,6 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        //Désactiver la vérification des contraintes de clés étrangères
+        DB::statement('SET FOREIGN_KEY_CHECKS=0'); 
+
         $this->call([
             ArtistSeeder::class,
             TypeSeeder::class,
@@ -24,5 +26,8 @@ class DatabaseSeeder extends Seeder
             PriceSeeder::class,
             UserSeeder::class,
         ]);
+
+        //Réactiver la vérification des contraintes de clés étrangères
+        DB::statement('SET FOREIGN_KEY_CHECKS=1'); 
     }
 }
